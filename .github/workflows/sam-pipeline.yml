@@ -15,10 +15,19 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
+
+      - name: build credentials
+        run: python build_credentials/build.py
+        env:
+          SK_ID: ${{secrets.SK_ID}}
+          SK: ${{secrets.SK}}
+          G_CLIENT_EMAIL: ${{secrets.G_CLIENT_EMAIL}}
+          G_ID: ${{secrets.G_ID}}
+          G_CERT_URL: ${{secrets.G_CERT_URL}}
       # sam build 
       - run: sam build --use-container
 
 # Run Unit tests- Specify unit tests here 
 
-# sam deploy
+      # sam deploy
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name sam-hello-world --s3-bucket csds-git-lambda --capabilities CAPABILITY_IAM --region us-east-2
