@@ -3,7 +3,7 @@ from google.cloud import bigquery
 import json
 
 def getClient():
-    return bigquery.Client(credentials=service_account.Credentials.from_service_account_file('atlas_api/credentials.json'))
+    return bigquery.Client(credentials=service_account.Credentials.from_service_account_file('credentials.json'))
 
 def queryGbq(client, query):
     query_job = client.query(query)

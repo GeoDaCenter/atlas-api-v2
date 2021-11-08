@@ -9,13 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - uses: aws-actions/setup-sam@v1
-      - uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
-
       - name: build credentials
         run: python build_credential/build.py
         env:
@@ -24,6 +17,12 @@ jobs:
           G_CLIENT_EMAIL: ${{secrets.G_CLIENT_EMAIL}}
           G_ID: ${{secrets.G_ID}}
           G_CERT_URL: ${{secrets.G_CERT_URL}}
+      - uses: aws-actions/setup-sam@v1
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
       # sam build 
       - run: sam build --use-container
 
