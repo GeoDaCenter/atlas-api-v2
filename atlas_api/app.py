@@ -20,6 +20,7 @@ def lambda_handler(event, context):
         results = queryGbq(client, query)
         if True:
             formatted_results = results.to_json(orient='records')
+            print(results.head())
 
     except Exception as e:
         # Send some context about this error to Lambda Logs
