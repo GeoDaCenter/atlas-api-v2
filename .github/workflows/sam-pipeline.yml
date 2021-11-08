@@ -17,7 +17,7 @@ jobs:
           aws-region: us-east-2
 
       - name: build credentials
-        run: python build_credentials/build.py
+        run: python build_credential/build.py
         env:
           SK_ID: ${{secrets.SK_ID}}
           SK: ${{secrets.SK}}
