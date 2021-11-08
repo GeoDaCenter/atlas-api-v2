@@ -3,8 +3,8 @@ from google.cloud import bigquery
 import json
 # import pandas as pd
 
-def getClient():
-    return bigquery.Client(credentials=service_account.Credentials.from_service_account_file('credentials.json'))
+def getClient(path='credentials.json'):
+    return bigquery.Client(credentials=service_account.Credentials.from_service_account_file(path))
 
 def queryGbq(client, query):
     query_job = client.query(query)
@@ -15,12 +15,11 @@ def lambda_handler(event, context):
     """
 
     try:
-        client = getClient()
+        client = getClient(path='credentials.json')
         query = 'SELECT * FROM `covid-atlas.public.chr_life` LIMIT 100'
         results = queryGbq(client, query)
         if True:
             formatted_results = results.to_json(orient='records')
-            print(results.head())
 
     except Exception as e:
         # Send some context about this error to Lambda Logs
@@ -33,3 +32,10 @@ def lambda_handler(event, context):
             "data": formatted_results
         }),
     }
+
+# # for local testing
+# if __name__ == "__main__":
+#     client = getClient(path='atlas_api/credentials.json')
+#     query = 'SELECT * FROM `covid-atlas.public.chr_life` LIMIT 100'
+#     results = queryGbq(client, query)
+#     print(results.head())
