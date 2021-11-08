@@ -1,6 +1,7 @@
 from google.oauth2 import service_account
 from google.cloud import bigquery
 import json
+# import pandas as pd
 
 def getClient():
     return bigquery.Client(credentials=service_account.Credentials.from_service_account_file('credentials.json'))
