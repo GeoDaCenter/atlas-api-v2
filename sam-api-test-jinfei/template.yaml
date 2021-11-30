@@ -17,25 +17,12 @@ Resources:
       Runtime: python3.8
       Architectures:
         - x86_64
+      MemorySize: 1024
       Events:
-        AtlasQuery:
+        AtlasQueryGreedy:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /
-            Method: get
-
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-    Properties:
-      CodeUri: atlas_api/
-      Handler: app.lambda_handler
-      Runtime: python3.8
-      Architectures:
-        - x86_64
-      Events:
-        AtlasQuery:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-          Properties:
-            Path: /
+            Path: /{proxy+}
             Method: get
 
 Outputs:

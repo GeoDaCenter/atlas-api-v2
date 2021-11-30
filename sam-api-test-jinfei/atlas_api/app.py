@@ -51,7 +51,7 @@ def build_query_by_parsing(url):
     path = parsed.path
     # split the path into list, like: ['api.uscovidatlas.org', 'vaccination', 'county', 'cumulative']
     path_lst = parsed.path.split('/')
-    dataset, spartial_unit, temporal_unit = [i for i in path_lst[1:]]
+    dataset, spatial_unit, temporal_unit = [i for i in path_lst[1:]]
     
     # split the query into list
     filter_lst = parsed.query.split('?')
